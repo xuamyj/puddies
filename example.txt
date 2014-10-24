@@ -1,0 +1,2 @@
+# Lines that start with '#' are comments
+Pair1Name1,Pair1Name2|Pair2Name1,Pair2Name2|Pair3Name1,Pair3Name2

@@ -1,0 +1,4 @@
+# Tuesday, Oct 8
+Director,Melissa|Amy,Emily|Armelle,John|Charissa,James|Dennis,Cindy|Kate,Jackie|Kyle,NDAlex|Owen,Allan
+# Wednesday, Oct 15
+Director,James|Amy,Cindy|Armelle,Dennis|Charissa,Jackie|Kate,Emily|Kyle,Melissa|Owen,NDAlex|John,Allan
