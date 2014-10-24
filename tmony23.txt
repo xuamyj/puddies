@@ -1,3 +1,5 @@
+# Testimony 23
+# Current members: Director, Amy, Armelle, Charissa, Dennis, Kate, Kyle, NDAlex, Allan, Cindy, Emily, Jackie, James, John, Melissa, Owen
 # Tuesday, Oct 8
 Director,Melissa|Amy,Emily|Armelle,John|Charissa,James|Dennis,Cindy|Kate,Jackie|Kyle,NDAlex|Owen,Allan
 # Wednesday, Oct 15
