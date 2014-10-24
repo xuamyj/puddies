@@ -32,7 +32,7 @@ def fetch_previous(filename):
     f = open(filename)
     for line in f:
         # line is not a comment
-        if len(line) > 0 and line[0] != '#':
+        if not line.startswith('#'):
             # generate list of pair strings like 'name1,name2'
             pair_strlist = line.split('|')
             for pair_str in pair_strlist:
@@ -56,9 +56,9 @@ def custom_generate(current, previous, used_names):
             used_names.add(name2)
             current.add(frozenset([name1, name2]))
             print 'Puddy pair added!'
-        # done is False if user enters 'y' in response to 'Add another'
+        # done is False if user hits <ENTER> or enters 'y' in response to 'Add another'
         done_check = raw_input('Add another? ')
-        done = len(done_check) > 0 and done_check[0].lower() != 'y'
+        done = not (len(done_check) == 0 or done_check.lower().startswith('y'))
 
 # recursive backtracking function that generates puddies
 # def rec_generate(puddies, used...):
@@ -103,7 +103,7 @@ if __name__ == '__main__':
     previous_puddies = fetch_previous(HISTORY_FILENAME)
     
     # match custom puddies
-    if (len(custom_flag) == 0 or custom_flag[0].lower() == 'y'):
+    if len(custom_flag) == 0 or custom_flag.lower().startswith('y'):
        custom_generate(current_puddies, previous_puddies, used_names)
 
     # recursively generate rest of puddies
@@ -113,7 +113,7 @@ if __name__ == '__main__':
     # confirm save
     display(current_puddies)
     save_flag = raw_input('Save? ')
-    if (len(save_flag) == 0 or save_flag[0].lower() == 'y'):
+    if len(save_flag) == 0 or save_flag.lower().startswith('y'):
         save(current_puddies, HISTORY_FILENAME)
         print 'Puddies saved! '
     else: 
