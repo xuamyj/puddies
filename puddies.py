@@ -69,26 +69,20 @@ def custom_generate(current, previous, used_names):
 def rec_generate(name1, name2, current, previous, used_names, unused_list):
     # if no names left
     if len(unused_list) == 0:
-        print 'DEBUG unused_list empty!'
         return True
     
     # iterate over possible pairs, but in a random order
     random.shuffle(unused_list)
-    print 'DEBUG unused_list: %s' % unused_list
     for i in range(len(unused_list)):
         for j in range(i+1, len(unused_list)):
             new_name1 = unused_list[i]
             new_name2 = unused_list[j]
-            print 'DEBUG new_name1: %s' % new_name1
-            print 'DEBUG new_name2: %s' % new_name2
     
             # if chosen names are not a valid puddy pair
-            if not check_valid(new_name1, new_name2, previous, used_names, True):
-                print 'DEBUG two names not valid, continue'
+            if not check_valid(new_name1, new_name2, previous, used_names, False):
                 continue
             
             # add new pair to storage structures
-            print 'DEBUG adding'
             used_names.add(new_name1)
             used_names.add(new_name2)
             new_pair = frozenset([new_name1, new_name2])
@@ -98,11 +92,9 @@ def rec_generate(name1, name2, current, previous, used_names, unused_list):
 
             # recursive step
             if rec_generate(new_name1, new_name2, current, previous, used_names, unused_list):
-                print 'DEBUG recursive true bounceback'
                 return True
             
             # remove new pair
-            print 'DEBUG removing'
             used_names.remove(new_name1)
             used_names.remove(new_name2)
             current.remove(new_pair)
