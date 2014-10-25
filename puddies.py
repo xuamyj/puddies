@@ -1,4 +1,5 @@
 from datetime import datetime
+import random
 
 MEMBERS = frozenset(["Director", "Amy", "Armelle", "Charissa", "Dennis", "Kate", "Kyle", "NDAlex", "Allan", "Cindy", "Emily", "Jackie", "James", "John", "Melissa", "Owen"])
 HISTORY_FILENAME = 'test.txt'
@@ -61,11 +62,61 @@ def custom_generate(current, previous, used_names):
         done = not (len(done_check) == 0 or done_check.lower().startswith('y'))
 
 # recursive backtracking function that generates puddies
-# def rec_generate(puddies, used...):
+# current: current set of puddies
+# previous: set of all previous puddy pairs
+# used_names: set of names used in current set of puddies
+# unused_names: list of names that need to be puddied
+def rec_generate(name1, name2, current, previous, used_names, unused_list):
+    # if no names left
+    if len(unused_list) == 0:
+        print 'DEBUG unused_list empty!'
+        return True
+    
+    # iterate over possible pairs, but in a random order
+    random.shuffle(unused_list)
+    print 'DEBUG unused_list: %s' % unused_list
+    for i in range(len(unused_list)):
+        for j in range(i+1, len(unused_list)):
+            new_name1 = unused_list[i]
+            new_name2 = unused_list[j]
+            print 'DEBUG new_name1: %s' % new_name1
+            print 'DEBUG new_name2: %s' % new_name2
+    
+            # if chosen names are not a valid puddy pair
+            if not check_valid(new_name1, new_name2, previous, used_names, True):
+                print 'DEBUG two names not valid, continue'
+                continue
+            
+            # add new pair to storage structures
+            print 'DEBUG adding'
+            used_names.add(new_name1)
+            used_names.add(new_name2)
+            new_pair = frozenset([new_name1, new_name2])
+            current.add(new_pair)
+            unused_list.remove(new_name1)
+            unused_list.remove(new_name2)
 
+            # recursive step
+            if rec_generate(new_name1, new_name2, current, previous, used_names, unused_list):
+                print 'DEBUG recursive true bounceback'
+                return True
+            
+            # remove new pair
+            print 'DEBUG removing'
+            used_names.remove(new_name1)
+            used_names.remove(new_name2)
+            current.remove(new_pair)
+            unused_list.append(new_name1)
+            unused_list.append(new_name2)
+    
 # wrapper function for puddy generator
-def random_generate(puddies, used, used_names):
-    return
+def random_generate(current, previous, used_names):
+    unused_set = MEMBERS - used_names
+    unused_list = list(unused_set)
+    if rec_generate('', '', current, previous, used_names, unused_list):
+        print 'Puddies generated! '
+    else: 
+        print 'Error: puddies not generated. '
 
 def display(puddies):
     print
