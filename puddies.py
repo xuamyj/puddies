@@ -2,7 +2,7 @@ from datetime import datetime
 import random
 
 MEMBERS = frozenset(["Director", "Amy", "Armelle", "Charissa", "Dennis", "Kate", "Kyle", "NDAlex", "Allan", "Cindy", "Emily", "Jackie", "James", "John", "Melissa", "Owen"])
-HISTORY_FILENAME = 'test.txt'
+HISTORY_FILENAME = 'tmony23.txt'
 
 # returns True if {name1, name2} is valid pair
 # prints error messages if error_msg == True
@@ -34,6 +34,8 @@ def fetch_previous(filename):
     for line in f:
         # line is not a comment
         if not line.startswith('#'):
+            #strip whitespace from line (otherwise \n becomes part of the name lol)
+            line = line.rstrip()
             # generate list of pair strings like 'name1,name2'
             pair_strlist = line.split('|')
             for pair_str in pair_strlist:
